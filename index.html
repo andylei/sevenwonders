@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Seven Wonders Score Calculator</title>
+  <style>
+    body {
+      font-family: Lato, sans-serif;
+      color: #2C3E50;
+    }
+    h2 {
+      padding-left: 5px;
+    }
+    input {
+      text-align: center;
+      border: 0px solid #bdc3c7;
+      color: #34495e;
+      font-size: 14px;
+      padding: 0px 2px;
+      text-indent: 2px;
+      height: 21px;
+      -webkit-appearance: none;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+      -webkit-transition: border .25s linear, color .25s linear;
+      -moz-transition: border .25s linear, color .25s linear;
+      -o-transition: border .25s linear, color .25s linear;
+      transition: border .25s linear, color .25s linear;
+      -webkit-backface-visibility: hidden;
+    }
+    span {
+      display: inline-block;
+    }
+    .scores {
+      display: block;
+      float: left;
+    }
+    .scores table {
+      border: 1px solid #ECF0F1;
+      border-collapse: collapse;
+    }
+    .scores td.label {
+      padding: 0 4px;
+      text-align: left;
+    }
+    .scores td {
+      border: 1px solid #ECF0F1;
+      padding-bottom: 3px;
+    }
+    .scores tr.name {
+      background-color: #2C3E50;
+      color: #ECF0F1;
+      text-align: center;
+    }
+    .scores tr.name input {
+      background-color: #2C3E50;
+      color: #ECF0F1;
+    }
+    .scores tr.total {
+      background-color: #2C3E50;
+      color: #ECF0F1;
+      text-align: center;
+    }
+    .ranking {
+      display: block;
+      float: left;
+      margin-left: 25px;
+    }
+    .ranking h3 {
+      margin-top: 0px;
+    }
+    .scores .war {
+      background-color: #C0392B;
+    }
+    .scores .money {
+      background-color: #BDC3C7;
+    }
+    .scores .wonders {
+    }
+    .scores .civics {
+      background-color: #2980b9;
+    }
+    .scores .commerce {
+      background-color: #F1C40F;
+    }
+    .scores .guilds {
+      background-color: #9b59b6;
+    }
+    .scores .science {
+      background-color: #27AE60;
+    }
+  </style>
+</head>
+<body>
+
+  <script type="text/x-handlebars">
+    <h2>Seven Wonders Score Calculator</h2>
+
+    {{outlet}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="scores">
+    <div class="scores">
+      <table>
+        <thead>
+          <tr class="name">
+            <td class="label">Name</td>
+            {{#each person in controller.persons}}
+            <td>{{view Ember.TextField size="4" valueBinding="person.name"}}</td>
+            {{/each}}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="label war">War</td>
+            {{#each person in controller.persons}}
+            <td>{{view Ember.TextField size="4" valueBinding="person.war"}}</td>
+            {{/each}}
+          </tr>
+          <tr>
+            <td class="label money">Coin</td>
+            {{#each person in controller.persons}}
+            <td>{{view Ember.TextField size="4" valueBinding="person.money"}}</td>
+            {{/each}}
+          </tr>
+          <tr>
+            <td class="label wonders">Wonders</td>
+            {{#each person in controller.persons}}
+            <td>{{view Ember.TextField size="4" valueBinding="person.wonders"}}</td>
+            {{/each}}
+          </tr>
+          <tr>
+            <td class="label civics">Civics</td>
+            {{#each person in controller.persons}}
+            <td>{{view Ember.TextField size="4" valueBinding="person.civics"}}</td>
+            {{/each}}
+          </tr>
+          <tr>
+            <td class="label commerce">Commerce</td>
+            {{#each person in controller.persons}}
+            <td>{{view Ember.TextField size="4" valueBinding="person.commerce"}}</td>
+            {{/each}}
+          </tr>
+          <tr>
+            <td class="label guilds">Guilds</td>
+            {{#each person in controller.persons}}
+            <td>{{view Ember.TextField size="4" valueBinding="person.guilds"}}</td>
+            {{/each}}
+          </tr>
+          <tr>
+            <td class="label science">Science</td>
+            {{#each person in controller.persons}}
+            <td>{{view Ember.TextField size="4" valueBinding="person.science"}}</td>
+            {{/each}}
+          </tr>
+          <tr class="total">
+            <td class="label">Total</td>
+            {{#each person in controller.persons}}
+            <td>{{person.total}}</td>
+            {{/each}}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ranking">
+      <h3>Rankings</h3>
+      <ol>
+      {{#each person in ranking}}
+      {{#if person.name}}
+      <li><span class="name">{{ person.name }}</span> ({{ person.total }})</li>
+      {{/if}}
+      {{/each}}
+      </ol>
+    </div>
+
+  </script>
+
+  <script src="js/libs/jquery-1.9.1.js"></script>
+  <script src="js/libs/handlebars-1.0.0-rc.4.js"></script>
+  <script src="js/libs/ember-1.0.0-rc.6.1.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
