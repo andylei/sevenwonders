@@ -18,22 +18,21 @@ Seven.ScoresRoute = Ember.Route.extend({
   }
 });
 
-Seven.RankingView = Ember.View.create({
-  templateName: 'ranking'
-});
-
 Seven.ScoresController = Ember.Controller.extend({
-  persons: [],
+  persons: null,
   ranking: function() {
-    var ppl = this.get('persons').slice(0);
+    var ppl = this.get('persons').toArray().slice(0);
     ppl.sort(function(a, b){ return b.get('total') - a.get('total'); });
     return ppl;
   }.property('persons.@each.total')
 });
 
 PERSON_SCORE_PARTS = ['war', 'money', 'wonders', 'civics', 'commerce', 'guilds', 'science'];
-Seven.PersonScore = Ember.Object.extend({
-  name: null,
+Seven.PersonScore = Ember.Controller.extend({
+  name: "",
+  nameCap: function() {
+    return this.get('name').toUpperCase();
+  }.property('name'),
   parts: PERSON_SCORE_PARTS,
   total: function() {
     var s = 0;
@@ -41,6 +40,11 @@ Seven.PersonScore = Ember.Object.extend({
       s += parseInt(this.get(PERSON_SCORE_PARTS[i]) || 0, 10);
     }
     return s;
-  }.property('war', 'money', 'wonders', 'civics', 'commerce', 'guilds', 'science')
+  }.property('war', 'money', 'wonders', 'civics', 'commerce', 'guilds', 'science'),
+  init: function() {
+    for (var i = 0; i < PERSON_SCORE_PARTS.length; i++) {
+      this.set(PERSON_SCORE_PARTS[i], 0);
+    }
+  }
 });
 

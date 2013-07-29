@@ -45,14 +45,6 @@
     {{outlet}}
   </script>
 
-  <script type="text/x-handlebars" data-template-name="ranking">
-    <ol>
-    {{#each person in persons}}
-    <li>{{ person.name }}</li>
-    {{/each}}
-    </ol>
-  </script>
-
   <script type="text/x-handlebars" data-template-name="scores">
     <div class="scores">
       <table>
@@ -117,6 +109,11 @@
       </table>
     </div>
     <div class="ranking">
+      <ol>
+      {{#each person in ranking}}
+      <li><span class="name">{{ person.name }}</span> ({{ person.total }})</li>
+      {{/each}}
+      </ol>
     </div>
 
   </script>
