@@ -32,6 +32,23 @@
     span {
       display: inline-block;
     }
+    .toolbar {
+      font-size: 14px;
+      padding: 0 30px;
+    }
+    .toolbar > span {
+      cursor: pointer;
+    }
+    .toolbar > span:hover {
+      color: #526270;
+    }
+    .scoresheet {
+      padding: 15px;
+      margin: 15px;
+      border: 1px solid #ECF0F1;
+      float: left;
+      clear: both;
+    }
     .scores {
       display: block;
       float: left;
@@ -43,6 +60,14 @@
     .scores td.label {
       padding: 0 4px;
       text-align: left;
+    }
+    .scores .add > span {
+      cursor: pointer;
+    }
+    .scores .add > span:hover {
+      cursor: pointer;
+      color: #C6CCD1;
+      background-color: #526270;
     }
     .scores td {
       border: 1px solid #ECF0F1;
@@ -100,16 +125,30 @@
     {{outlet}}
   </script>
 
-  <script type="text/x-handlebars" data-template-name="scores">
+  <script type="text/x-handlebars" data-template-name="score-header">
+    <td class="label">Name</td>
+    {{#each person in persons}}
+    <td>{{view Ember.TextField size="4" valueBinding="person.name"}}</td>
+    {{/each}}
+    <td class="add">
+      <span {{action 'addPerson' }}>+</span> <span {{action 'removePerson'}}>&ndash;</span>
+    </td>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="game">
+    <div class="toolbar">
+      <span {{action 'addSheet'}}>New Score Sheet</span>
+    </div>
+    {{#each sheet in scoreSheets}}
+    {{ view Seven.ScoreSheetView controllerBinding="sheet" }}
+    {{/each}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="scoreSheet">
     <div class="scores">
       <table>
         <thead>
-          <tr class="name">
-            <td class="label">Name</td>
-            {{#each person in controller.persons}}
-            <td>{{view Ember.TextField size="4" valueBinding="person.name"}}</td>
-            {{/each}}
-          </tr>
+          {{view Seven.ScoresHeaderView controllerBinding="controller"}}
         </thead>
         <tbody>
           <tr>
